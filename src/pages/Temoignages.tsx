@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { 
-  Quote, 
-  Play, 
-  Pause, 
-  Volume2, 
-  Send, 
-  User, 
-  GraduationCap, 
+import {
+  Quote,
+  Play,
+  Pause,
+  Volume2,
+  Send,
+  User,
+  GraduationCap,
   Calendar,
   Video,
   Mic,
@@ -136,9 +136,9 @@ function AudioPlayer({ testimonial }: { testimonial: Testimonial }) {
             <p className="text-xs text-accent">{testimonial.university}</p>
           </div>
         </div>
-        
+
         <p className="text-muted-foreground mb-4 text-sm italic">"{testimonial.content}"</p>
-        
+
         {/* Audio Controls */}
         <div className="bg-muted rounded-lg p-4">
           <div className="flex items-center gap-4">
@@ -150,7 +150,7 @@ function AudioPlayer({ testimonial }: { testimonial: Testimonial }) {
             </button>
             <div className="flex-1">
               <div className="h-2 bg-border rounded-full overflow-hidden">
-                <div 
+                <div
                   className="h-full bg-accent transition-all duration-200"
                   style={{ width: `${progress}%` }}
                 />
@@ -163,7 +163,7 @@ function AudioPlayer({ testimonial }: { testimonial: Testimonial }) {
             <Volume2 className="h-5 w-5 text-muted-foreground" />
           </div>
         </div>
-        
+
         <div className="mt-4 text-xs text-accent font-medium">{testimonial.year}</div>
       </CardContent>
     </Card>
@@ -227,11 +227,11 @@ function TextTestimonial({ testimonial }: { testimonial: Testimonial }) {
         <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center mb-4">
           <Quote className="h-5 w-5 text-accent" />
         </div>
-        
+
         <blockquote className="text-foreground leading-relaxed flex-1 mb-4">
           "{testimonial.content}"
         </blockquote>
-        
+
         <div className="border-t border-border pt-4 mt-auto">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
@@ -271,15 +271,15 @@ function SubmissionForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Simulate submission
     await new Promise((resolve) => setTimeout(resolve, 1500));
-    
+
     toast({
       title: "Témoignage envoyé !",
       description: "Merci pour votre témoignage. Notre équipe le examinera avant publication.",
     });
-    
+
     setFormData({
       name: "",
       email: "",
@@ -326,7 +326,7 @@ function SubmissionForm() {
               />
             </div>
           </div>
-          
+
           <div className="grid sm:grid-cols-2 gap-4">
             <div className="space-y-2">
               <label className="text-sm font-medium text-foreground">Université / École</label>
@@ -347,7 +347,7 @@ function SubmissionForm() {
               />
             </div>
           </div>
-          
+
           {/* Type Selection */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground">Type de témoignage *</label>
@@ -373,7 +373,7 @@ function SubmissionForm() {
               ))}
             </div>
           </div>
-          
+
           {/* Content based on type */}
           {formData.type === "text" && (
             <div className="space-y-2">
@@ -387,7 +387,7 @@ function SubmissionForm() {
               />
             </div>
           )}
-          
+
           {formData.type === "audio" && (
             <div className="space-y-2">
               <label className="text-sm font-medium text-foreground">Fichier audio</label>
@@ -409,7 +409,7 @@ function SubmissionForm() {
               />
             </div>
           )}
-          
+
           {formData.type === "video" && (
             <div className="space-y-2">
               <label className="text-sm font-medium text-foreground">Lien vidéo (YouTube, Vimeo)</label>
@@ -424,11 +424,11 @@ function SubmissionForm() {
               </p>
             </div>
           )}
-          
-          <Button 
-            type="submit" 
-            variant="hero" 
-            size="lg" 
+
+          <Button
+            type="submit"
+            variant="hero"
+            size="lg"
             className="w-full"
             disabled={isSubmitting}
           >
@@ -444,7 +444,7 @@ function SubmissionForm() {
               </>
             )}
           </Button>
-          
+
           <p className="text-xs text-muted-foreground text-center">
             Votre témoignage sera examiné par notre équipe avant publication.
           </p>
@@ -455,11 +455,11 @@ function SubmissionForm() {
 }
 
 // Filter Tabs Component
-function FilterTabs({ 
-  activeFilter, 
-  setActiveFilter 
-}: { 
-  activeFilter: TestimonialType | "all"; 
+function FilterTabs({
+  activeFilter,
+  setActiveFilter
+}: {
+  activeFilter: TestimonialType | "all";
   setActiveFilter: (filter: TestimonialType | "all") => void;
 }) {
   const filters = [
@@ -492,14 +492,14 @@ function FilterTabs({
 export default function Temoignages() {
   const [activeFilter, setActiveFilter] = useState<TestimonialType | "all">("all");
 
-  const filteredTestimonials = activeFilter === "all" 
-    ? testimonials 
+  const filteredTestimonials = activeFilter === "all"
+    ? testimonials
     : testimonials.filter((t) => t.type === activeFilter);
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
+
       {/* Hero Section */}
       <section className="pt-32 pb-16 bg-gradient-to-b from-secondary to-background">
         <div className="section-container">
@@ -516,7 +516,7 @@ export default function Temoignages() {
               Des vies <span className="text-gradient-gold">transformées</span>
             </h1>
             <p className="text-lg text-muted-foreground">
-              Découvrez comment Dieu a touché et transformé des vies à travers le ministère du GBUSS. 
+              Découvrez comment Dieu a touché et transformé des vies à travers le ministère du GBUSS.
               Ces témoignages d'anciens étudiants racontent l'impact du mouvement sur leur foi et leur parcours.
             </p>
           </motion.div>
@@ -528,9 +528,9 @@ export default function Temoignages() {
         <div className="section-container">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
-              { number: "500+", label: "Témoignages" },
-              { number: "50", label: "Années d'impact" },
-              { number: "100+", label: "Universités" },
+              { number: "100+", label: "Témoignages" },
+              { number: "30", label: "Années d'impact" },
+              { number: "6+", label: "Universités" },
               { number: "∞", label: "Vies transformées" },
             ].map((stat, index) => (
               <motion.div
@@ -601,7 +601,7 @@ export default function Temoignages() {
                 50 ans d'impact au Sénégal
               </h2>
             </div>
-            
+
             <div className="relative aspect-video rounded-2xl overflow-hidden shadow-elevated">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/90 to-primary flex items-center justify-center">
                 <div className="text-center text-primary-foreground p-8">
@@ -631,11 +631,11 @@ export default function Temoignages() {
                 Partagez votre <span className="text-primary">témoignage</span>
               </h2>
               <p className="text-muted-foreground mb-8">
-                Votre expérience au sein du GBUSS peut inspirer et encourager la nouvelle génération 
-                d'étudiants. Que ce soit un texte, un audio ou une vidéo, partagez comment Dieu a 
+                Votre expérience au sein du GBUSS peut inspirer et encourager la nouvelle génération
+                d'étudiants. Que ce soit un texte, un audio ou une vidéo, partagez comment Dieu a
                 agi dans votre vie à travers le mouvement.
               </p>
-              
+
               <div className="space-y-4">
                 {[
                   { icon: FileText, title: "Témoignage écrit", desc: "Rédigez votre histoire en quelques paragraphes" },
@@ -654,7 +654,7 @@ export default function Temoignages() {
                 ))}
               </div>
             </div>
-            
+
             <SubmissionForm />
           </div>
         </div>

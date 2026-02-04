@@ -9,7 +9,7 @@ const navigation = [
   { name: "Vision & Mission", href: "/vision" },
   { name: "Nos Actions", href: "/actions" },
   { name: "Témoignages", href: "/temoignages" },
-  { name: "Équipe", href: "/equipe" },
+  // { name: "Prier", href: "/prier" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -24,9 +24,9 @@ export function Header() {
       <nav className="section-container flex items-center justify-between py-4">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3 group">
-          <img 
-            src={logo} 
-            alt="GBUSS Logo" 
+          <img
+            src={logo}
+            alt="GBUSS Logo"
             className="h-12 w-auto transition-transform duration-300 group-hover:scale-105"
           />
           <div className="hidden sm:block">

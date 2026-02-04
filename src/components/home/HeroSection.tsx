@@ -23,7 +23,7 @@ export function HeroSection() {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/20 backdrop-blur-sm border border-accent/30 text-accent mb-8 animate-fade-up">
             <BookOpen className="h-4 w-4" />
-            <span className="text-sm font-medium">Depuis 1967 au service des étudiants</span>
+            <span className="text-sm font-medium">Depuis 1964 au service des étudiants</span>
           </div>
 
           {/* Main Title */}
@@ -37,7 +37,7 @@ export function HeroSection() {
 
           {/* Subtitle */}
           <p className="text-lg sm:text-xl text-primary-foreground/85 max-w-2xl mb-10 leading-relaxed animate-fade-up" style={{ animationDelay: "0.2s" }}>
-            Le GBUSS accompagne les étudiants et lycéens chrétiens du Sénégal dans leur croissance 
+            Le GBUSS accompagne les étudiants et lycéens chrétiens du Sénégal dans leur croissance
             spirituelle et leur témoignage au sein de leur établissement.
           </p>
 
@@ -60,9 +60,9 @@ export function HeroSection() {
           {/* Stats */}
           <div className="grid grid-cols-3 gap-8 mt-16 pt-8 border-t border-primary-foreground/20 animate-fade-up" style={{ animationDelay: "0.4s" }}>
             {[
-              { value: "50+", label: "Années d'existence" },
-              { value: "14", label: "Régions couvertes" },
-              { value: "1000+", label: "Étudiants touchés" },
+              { value: "60+", label: "Années d'existence" },
+              { value: "7/14", label: "Régions couvertes" },
+              { value: "100.000+", label: "Étudiants touchés" },
             ].map((stat) => (
               <div key={stat.label} className="text-center sm:text-left">
                 <div className="text-3xl sm:text-4xl font-bold text-accent mb-1">{stat.value}</div>

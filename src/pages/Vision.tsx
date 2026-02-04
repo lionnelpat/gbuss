@@ -5,23 +5,23 @@ import { Target, Eye, Heart, BookOpen, Users, Compass } from "lucide-react";
 const values = [
   {
     icon: BookOpen,
-    title: "Fidélité à la Parole",
-    description: "Nous croyons en l'autorité suprême de la Bible comme fondement de notre foi et de nos actions.",
+    title: "Intégrité",
+    description: "Agir avec honnêteté et transparence, en étant fidèle à nos principes dans toutes nos actions.",
   },
   {
     icon: Heart,
-    title: "Amour fraternel",
-    description: "Nous cultivons des relations authentiques basées sur l'amour de Christ entre étudiants.",
+    title: "Service",
+    description: "Servir les autres avec humilité et amour, en suivant l'exemple du Christ.",
   },
   {
     icon: Compass,
-    title: "Intégrité",
-    description: "Nous cherchons à vivre de manière cohérente avec nos convictions dans tous les aspects de la vie.",
+    title: "Engagement",
+    description: "Travailler avec persévérance et détermination pour promouvoir l'Évangile, malgré les défis",
   },
   {
     icon: Users,
-    title: "Communion",
-    description: "Nous valorisons la vie communautaire et l'entraide au sein du corps de Christ.",
+    title: "Unité",
+    description: "Promouvoir la cohésion et la collaboration entre les membres et partenaires pour accomplir notre mission commune",
   },
 ];
 
@@ -61,19 +61,19 @@ const VisionPage = () => {
                   </h2>
                 </div>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                  Voir des étudiants et lycéens chrétiens du Sénégal transformés par la Parole de Dieu, 
-                  vivant une foi authentique et témoignant de Jésus-Christ au sein de leur établissement 
-                  et dans la société.
+                  Notre vision est de voir des élèves, des étudiants et des amis qui croissent ensemble en tant que
+                  communautés de disciples, transformés par l'Évangile et ayant un impact sur l’université, l'église et la
+                  société pour la gloire de Christ.
                 </p>
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  Nous rêvons d'une génération de jeunes leaders chrétiens qui impactent positivement 
-                  leur environnement académique et professionnel par leur intégrité, leur excellence 
+                  Nous rêvons d'une génération de jeunes leaders chrétiens qui impactent positivement
+                  leur environnement académique et professionnel par leur intégrité, leur excellence
                   et leur amour pour les autres.
                 </p>
               </div>
               <div className="bg-secondary rounded-2xl p-8 lg:p-12">
                 <blockquote className="font-serif text-2xl italic text-foreground leading-relaxed">
-                  "Car Dieu a tant aimé le monde qu'il a donné son Fils unique, afin que quiconque 
+                  "Car Dieu a tant aimé le monde qu'il a donné son Fils unique, afin que quiconque
                   croit en lui ne périsse point, mais qu'il ait la vie éternelle."
                 </blockquote>
                 <cite className="block mt-6 text-accent font-semibold">— Jean 3:16</cite>
@@ -114,12 +114,11 @@ const VisionPage = () => {
                   </h2>
                 </div>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                  Accompagner les étudiants et lycéens chrétiens du Sénégal dans leur croissance 
-                  spirituelle, les équiper pour témoigner de l'Évangile sur leur campus et les 
-                  préparer à servir Christ dans la société.
+                  Encourager les élèves, les étudiants et les amis à croitre ensemble, vivre et témoigner de leur foi
+                  chrétienne au sein de leurs milieux d'études et de travail..
                 </p>
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  Nous travaillons en partenariat avec les églises locales pour offrir un 
+                  Nous travaillons en partenariat avec les églises locales pour offrir un
                   encadrement complet aux jeunes croyants.
                 </p>
               </div>

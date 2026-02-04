@@ -14,7 +14,7 @@ const ContactPage = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Simulate form submission
     setTimeout(() => {
       toast({
@@ -55,7 +55,7 @@ const ContactPage = () => {
                 <h2 className="font-serif text-3xl font-bold text-foreground mb-8">
                   Nos coordonnées
                 </h2>
-                
+
                 <div className="space-y-6 mb-10">
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
@@ -65,7 +65,7 @@ const ContactPage = () => {
                       <h3 className="font-semibold text-foreground mb-1">Adresse</h3>
                       <p className="text-muted-foreground">
                         Dakar, Sénégal<br />
-                        Bureau national du GBUSS
+                        Secrétariat national du GBUSS
                       </p>
                     </div>
                   </div>
@@ -76,8 +76,8 @@ const ContactPage = () => {
                     </div>
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">Téléphone</h3>
-                      <a href="tel:+221xxxxxxxxx" className="text-muted-foreground hover:text-accent transition-colors">
-                        +221 XX XXX XX XX
+                      <a href="https://wa.me/221770800054" className="text-muted-foreground hover:text-accent transition-colors">
+                        +221 77 080 00 54
                       </a>
                     </div>
                   </div>
@@ -88,8 +88,8 @@ const ContactPage = () => {
                     </div>
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">Email</h3>
-                      <a href="mailto:contact@gbuss.sn" className="text-muted-foreground hover:text-accent transition-colors">
-                        contact@gbuss.sn
+                      <a href="mailto:gbuss.infos@gmail.com" className="text-muted-foreground hover:text-accent transition-colors">
+                        gbuss.infos@gmail.com
                       </a>
                     </div>
                   </div>
@@ -124,7 +124,7 @@ const ContactPage = () => {
                 <h2 className="font-serif text-2xl font-bold text-foreground mb-6">
                   Envoyez-nous un message
                 </h2>
-                
+
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
@@ -159,18 +159,18 @@ const ContactPage = () => {
                     <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
                       Message
                     </label>
-                    <Textarea 
-                      id="message" 
-                      placeholder="Écrivez votre message ici..." 
+                    <Textarea
+                      id="message"
+                      placeholder="Écrivez votre message ici..."
                       rows={5}
-                      required 
+                      required
                     />
                   </div>
 
-                  <Button 
-                    type="submit" 
-                    variant="hero" 
-                    size="lg" 
+                  <Button
+                    type="submit"
+                    variant="hero"
+                    size="lg"
                     className="w-full"
                     disabled={isSubmitting}
                   >

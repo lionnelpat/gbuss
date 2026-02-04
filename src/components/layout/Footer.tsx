@@ -40,7 +40,7 @@ export function Footer() {
               </div>
             </Link>
             <p className="text-sm opacity-80 leading-relaxed mb-6">
-              Depuis plus de 50 ans, le GBUSS accompagne les étudiants et lycéens chrétiens 
+              Depuis plus de 60 ans, le GBUSS accompagne les étudiants et lycéens chrétiens
               dans leur cheminement de foi.
             </p>
             <div className="flex gap-3">
@@ -105,14 +105,14 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-5 w-5 opacity-80" />
-                <a href="tel:+221xxxxxxxxx" className="text-sm opacity-80 hover:opacity-100 transition-opacity">
-                  +221 XX XXX XX XX
+                <a href="https://wa.me/221770800054" className="text-sm opacity-80 hover:opacity-100 transition-opacity">
+                  +221 77 080 00 54
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-5 w-5 opacity-80" />
-                <a href="mailto:contact@gbuss.sn" className="text-sm opacity-80 hover:opacity-100 transition-opacity">
-                  contact@gbuss.sn
+                <a href="mailto:gbuss.infos@gmail.com" className="text-sm opacity-80 hover:opacity-100 transition-opacity">
+                  gbuss.infos@gmail.com
                 </a>
               </li>
             </ul>

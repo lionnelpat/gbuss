@@ -7,17 +7,20 @@ const values = [
   {
     icon: Eye,
     title: "Vision",
-    description: "Voir des étudiants et lycéens chrétiens transformés par l'Évangile, vivant une foi authentique et témoignant de Christ sur leur campus.",
+    description: "Notre vision est de voir des élèves, des étudiants et des amis qui croissent ensemble en tant que \n" +
+        "communautés de disciples, transformés par l'Évangile et ayant un impact sur l’université, l'église et la \n" +
+        "société pour la gloire de Christ.",
   },
   {
     icon: Target,
     title: "Mission",
-    description: "Accompagner les jeunes dans leur croissance spirituelle à travers l'étude de la Bible, la prière et la communion fraternelle.",
+    description: "Encourager les élèves, les étudiants et les amis à croitre ensemble, vivre et témoigner de leur foi \n" +
+        "chrétienne au sein de leurs milieux d'études et de travail.",
   },
   {
     icon: Heart,
     title: "Valeurs",
-    description: "Fidélité à la Parole de Dieu, amour fraternel, intégrité, excellence académique et engagement au service des autres.",
+    description: "Le GBUSS se fonde sur les valeurs suivantes: Intégrité | Service | Engagement | Unité",
   },
 ];
 
@@ -36,15 +39,15 @@ export function MissionSection() {
               <span className="text-primary">engagés</span> pour demain
             </h2>
             <p className="text-lg text-muted-foreground mb-10 leading-relaxed">
-              Le GBUSS est un mouvement d'évangélisation et d'édification des étudiants 
-              et lycéens chrétiens au Sénégal. Nous croyons que chaque jeune peut être 
+              Le GBUSS est un mouvement d'évangélisation et d'édification des étudiants
+              et lycéens chrétiens au Sénégal. Nous croyons que chaque jeune peut être
               un ambassadeur de Christ dans son environnement académique.
             </p>
 
             <div className="space-y-6 mb-10">
               {values.map((item, index) => (
-                <div 
-                  key={item.title} 
+                <div
+                  key={item.title}
                   className="flex gap-4 p-4 rounded-xl bg-card shadow-card hover:shadow-elevated transition-all duration-300"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
@@ -81,7 +84,7 @@ export function MissionSection() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent" />
             </div>
-            
+
             {/* Floating Card */}
             <div className="absolute -bottom-6 -left-6 bg-card rounded-xl p-6 shadow-elevated max-w-xs">
               <blockquote className="font-serif text-lg italic text-foreground mb-3">

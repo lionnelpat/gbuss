@@ -7,18 +7,18 @@ import { Link } from "react-router-dom";
 const donationOptions = [
   {
     icon: Smartphone,
-    title: "Mobile Money",
-    description: "Orange Money, Wave, Free Money",
-    details: "Envoyez votre don au numéro : +221 XX XXX XX XX",
+    title: "Wave Money",
+    description: "Via Wave Money",
+    details: "Envoyez votre don au numéro : +221 78 754 53 63",
+  },
+  {
+    icon: Smartphone,
+    title: "Orange Money",
+    description: "Via Orange Money",
+    details: "Envoyez votre don au numéro : +221 78 754 53 63",
   },
   {
     icon: CreditCard,
-    title: "Carte bancaire",
-    description: "Visa, Mastercard",
-    details: "Paiement sécurisé en ligne",
-  },
-  {
-    icon: Building,
     title: "Virement bancaire",
     description: "Transfert direct",
     details: "Contactez-nous pour les coordonnées bancaires",
@@ -55,8 +55,8 @@ const DonPage = () => {
                 Pourquoi donner ?
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Le GBUSS fonctionne grâce à la générosité de ses membres et partenaires. 
-                Vos dons financent les études bibliques, les camps, la formation des leaders 
+                Le GBUSS fonctionne grâce à la générosité de ses membres et partenaires.
+                Vos dons financent les études bibliques, les camps, la formation des leaders
                 et l'évangélisation sur les campus du Sénégal.
               </p>
             </div>
@@ -64,9 +64,9 @@ const DonPage = () => {
             {/* Impact Stats */}
             <div className="grid sm:grid-cols-3 gap-8 max-w-4xl mx-auto mb-16">
               {[
-                { value: "1000+", label: "Étudiants touchés chaque année" },
-                { value: "14", label: "Régions couvertes" },
-                { value: "50+", label: "Groupes locaux actifs" },
+                { value: "500+", label: "Étudiants touchés chaque année" },
+                { value: "7", label: "Régions couvertes" },
+                { value: "10+", label: "Groupes locaux actifs" },
               ].map((stat) => (
                 <div key={stat.label} className="text-center bg-secondary rounded-xl p-8">
                   <div className="text-4xl font-bold text-accent mb-2">{stat.value}</div>
@@ -125,7 +125,7 @@ const DonPage = () => {
               Vous préférez prier avec nous ?
             </h2>
             <p className="text-lg text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              La prière est un soutien précieux. Rejoignez notre chaîne de prière 
+              La prière est un soutien précieux. Rejoignez notre chaîne de prière
               et intercédez pour le mouvement et les étudiants.
             </p>
             <Button variant="gold" size="lg" asChild>
