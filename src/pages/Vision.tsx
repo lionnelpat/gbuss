@@ -1,6 +1,7 @@
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Target, Eye, Heart, BookOpen, Users, Compass } from "lucide-react";
+import {PAGE_SEO, useSEO} from "@/hooks/useSEO.ts";
 
 const values = [
   {
@@ -26,6 +27,7 @@ const values = [
 ];
 
 const VisionPage = () => {
+  useSEO(PAGE_SEO.vision);
   return (
     <div className="min-h-screen">
       <Header />

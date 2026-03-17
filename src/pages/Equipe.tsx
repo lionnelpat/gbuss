@@ -5,6 +5,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Users, Building2, MapPin, Heart, Briefcase, Mail, Phone } from "lucide-react";
+import {PAGE_SEO, useSEO} from "@/hooks/useSEO.ts";
 
 interface TeamMember {
   id: string;
@@ -166,6 +167,7 @@ export default function Equipe() {
     return teamMembers.filter((member) => member.category === categoryId);
   };
 
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -185,7 +187,7 @@ export default function Equipe() {
               L'Équipe <span className="text-gradient-gold">Nationale</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Découvrez les personnes dévouées qui font vivre le GBUSS au quotidien, 
+              Découvrez les personnes dévouées qui font vivre le GBUSS au quotidien,
               des responsables nationaux aux animateurs locaux.
             </p>
           </motion.div>
@@ -328,7 +330,7 @@ export default function Equipe() {
               Rejoignez l'équipe
             </h2>
             <p className="text-white/80 max-w-2xl mx-auto mb-8">
-              Vous êtes passionné par le ministère estudiantin ? Découvrez comment vous pouvez 
+              Vous êtes passionné par le ministère estudiantin ? Découvrez comment vous pouvez
               servir au sein du GBUSS et impacter la vie des jeunes.
             </p>
             <a
@@ -367,7 +369,7 @@ export default function Equipe() {
               </DialogHeader>
               <div className="space-y-4 mt-4">
                 <p className="text-muted-foreground">{selectedMember.bio}</p>
-                
+
                 {(selectedMember.email || selectedMember.phone || selectedMember.location) && (
                   <div className="border-t pt-4 space-y-3">
                     {selectedMember.email && (

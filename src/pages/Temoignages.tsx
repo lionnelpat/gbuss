@@ -22,6 +22,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import {PAGE_SEO, useSEO} from "@/hooks/useSEO.ts";
 
 // Types for testimonials
 type TestimonialType = "text" | "audio" | "video";
@@ -469,6 +470,7 @@ function FilterTabs({
     { id: "video" as const, label: "Vidéo", icon: Video },
   ];
 
+
   return (
     <div className="flex flex-wrap justify-center gap-2">
       {filters.map((filter) => (
@@ -496,6 +498,7 @@ export default function Temoignages() {
     ? testimonials
     : testimonials.filter((t) => t.type === activeFilter);
 
+  useSEO(PAGE_SEO.temoignages);
   return (
     <div className="min-h-screen bg-background">
       <Header />

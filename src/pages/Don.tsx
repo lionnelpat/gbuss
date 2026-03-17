@@ -3,6 +3,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Heart, CreditCard, Smartphone, Building } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import {PAGE_SEO, useSEO} from "@/hooks/useSEO.ts";
 
 const donationOptions = [
   {
@@ -26,6 +27,7 @@ const donationOptions = [
 ];
 
 const DonPage = () => {
+  useSEO(PAGE_SEO.don);
   return (
     <div className="min-h-screen">
       <Header />

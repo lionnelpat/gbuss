@@ -7,12 +7,12 @@ import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { 
-  CalendarDays, 
-  MapPin, 
-  Clock, 
-  Users, 
-  ChevronLeft, 
+import {
+  CalendarDays,
+  MapPin,
+  Clock,
+  Users,
+  ChevronLeft,
   ChevronRight,
   X,
   Image as ImageIcon,
@@ -24,6 +24,7 @@ import {
 import { format, isSameDay } from "date-fns";
 import { fr } from "date-fns/locale";
 import { cn } from "@/lib/utils";
+import {PAGE_SEO, useSEO} from "@/hooks/useSEO.ts";
 
 interface Event {
   id: string;
@@ -202,12 +203,13 @@ export default function Actions() {
     return upcomingEvents.filter((event) => isSameDay(event.date, date));
   };
 
-  const filteredGallery = galleryFilter === "all" 
-    ? galleryImages 
+  const filteredGallery = galleryFilter === "all"
+    ? galleryImages
     : galleryImages.filter((img) => img.category === galleryFilter);
 
   const galleryCategories = ["all", ...new Set(galleryImages.map((img) => img.category))];
 
+  useSEO(PAGE_SEO.actions);
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -227,7 +229,7 @@ export default function Actions() {
               Nos <span className="text-gradient-gold">Actions</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Découvrez nos activités, événements à venir et les moments forts 
+              Découvrez nos activités, événements à venir et les moments forts
               qui marquent la vie du GBUSS.
             </p>
           </motion.div>
@@ -479,7 +481,7 @@ export default function Actions() {
               Participez à nos activités
             </h2>
             <p className="text-white/80 max-w-2xl mx-auto mb-8">
-              Rejoignez-nous lors de nos prochains événements et faites partie 
+              Rejoignez-nous lors de nos prochains événements et faites partie
               de cette belle aventure spirituelle.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -512,7 +514,7 @@ export default function Actions() {
               </DialogHeader>
               <div className="space-y-4 mt-4">
                 <p className="text-muted-foreground">{selectedEvent.description}</p>
-                
+
                 <div className="border-t pt-4 space-y-3">
                   <div className="flex items-center gap-3 text-sm">
                     <Clock className="h-4 w-4 text-primary" />

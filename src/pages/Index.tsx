@@ -5,8 +5,10 @@ import { MissionSection } from "@/components/home/MissionSection";
 import { ActionsSection } from "@/components/home/ActionsSection";
 import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 import { CTASection } from "@/components/home/CTASection";
+import { useSEO, PAGE_SEO } from "@/hooks/useSEO";
 
 const Index = () => {
+    useSEO(PAGE_SEO.home);
   return (
     <div className="min-h-screen">
       <Header />

@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin, Send, Facebook, Instagram, Youtube } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import {PAGE_SEO, useSEO} from "@/hooks/useSEO.ts";
 
 const ContactPage = () => {
   const { toast } = useToast();
@@ -25,6 +26,7 @@ const ContactPage = () => {
     }, 1500);
   };
 
+  useSEO(PAGE_SEO.contact);
   return (
     <div className="min-h-screen">
       <Header />

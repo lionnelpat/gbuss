@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
+import {PAGE_SEO, useSEO} from "@/hooks/useSEO.ts";
 
 const prayerTopics = [
   {
@@ -72,6 +73,7 @@ const PrierPage = () => {
     });
   };
 
+  useSEO(PAGE_SEO.prier);
   if (isSubmitted) {
     return (
       <div className="min-h-screen">
