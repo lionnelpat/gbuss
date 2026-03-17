@@ -12,7 +12,6 @@ import Equipe from "./pages/Equipe";
 import Actions from "./pages/Actions";
 import Prier from "./pages/Prier";
 import NotFound from "./pages/NotFound";
-import Prier from "@/pages/Prier.tsx";
 
 const queryClient = new QueryClient();
 
@@ -30,7 +29,6 @@ const App = () => (
           <Route path="/temoignages" element={<Temoignages />} />
           <Route path="/prier" element={<Prier />} />
           <Route path="/actions" element={<Actions />} />
-          <Route path="/prier" element={<Prier />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
