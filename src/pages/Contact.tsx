@@ -7,23 +7,49 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin, Send, Facebook, Instagram, Youtube } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import {PAGE_SEO, useSEO} from "@/hooks/useSEO.ts";
+import { submitToWeb3Forms } from "@/lib/web3forms";
 
 const ContactPage = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      await submitToWeb3Forms({
+        subject: `[GBUSS Contact] ${formData.subject}`,
+        from_name: `${formData.firstName} ${formData.lastName}`,
+        email: formData.email,
+        Prénom: formData.firstName,
+        Nom: formData.lastName,
+        Sujet: formData.subject,
+        Message: formData.message,
+      });
+
       toast({
         title: "Message envoyé !",
         description: "Nous vous répondrons dans les plus brefs délais.",
       });
+
+      setFormData({ firstName: "", lastName: "", email: "", subject: "", message: "" });
+    } catch {
+      toast({
+        title: "Erreur d'envoi",
+        description: "Une erreur s'est produite. Veuillez réessayer ou nous contacter par email.",
+        variant: "destructive",
+      });
+    } finally {
       setIsSubmitting(false);
-    }, 1500);
+    }
   };
 
   useSEO(PAGE_SEO.contact);
@@ -133,13 +159,25 @@ const ContactPage = () => {
                       <label htmlFor="firstName" className="block text-sm font-medium text-foreground mb-2">
                         Prénom
                       </label>
-                      <Input id="firstName" placeholder="Votre prénom" required />
+                      <Input
+                        id="firstName"
+                        placeholder="Votre prénom"
+                        value={formData.firstName}
+                        onChange={(e) => setFormData((p) => ({ ...p, firstName: e.target.value }))}
+                        required
+                      />
                     </div>
                     <div>
                       <label htmlFor="lastName" className="block text-sm font-medium text-foreground mb-2">
                         Nom
                       </label>
-                      <Input id="lastName" placeholder="Votre nom" required />
+                      <Input
+                        id="lastName"
+                        placeholder="Votre nom"
+                        value={formData.lastName}
+                        onChange={(e) => setFormData((p) => ({ ...p, lastName: e.target.value }))}
+                        required
+                      />
                     </div>
                   </div>
 
@@ -147,14 +185,27 @@ const ContactPage = () => {
                     <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
                       Email
                     </label>
-                    <Input id="email" type="email" placeholder="votre@email.com" required />
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="votre@email.com"
+                      value={formData.email}
+                      onChange={(e) => setFormData((p) => ({ ...p, email: e.target.value }))}
+                      required
+                    />
                   </div>
 
                   <div>
                     <label htmlFor="subject" className="block text-sm font-medium text-foreground mb-2">
                       Sujet
                     </label>
-                    <Input id="subject" placeholder="Objet de votre message" required />
+                    <Input
+                      id="subject"
+                      placeholder="Objet de votre message"
+                      value={formData.subject}
+                      onChange={(e) => setFormData((p) => ({ ...p, subject: e.target.value }))}
+                      required
+                    />
                   </div>
 
                   <div>
@@ -165,6 +216,8 @@ const ContactPage = () => {
                       id="message"
                       placeholder="Écrivez votre message ici..."
                       rows={5}
+                      value={formData.message}
+                      onChange={(e) => setFormData((p) => ({ ...p, message: e.target.value }))}
                       required
                     />
                   </div>

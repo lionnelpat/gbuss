@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Badge } from "@/components/ui/badge";
@@ -12,9 +13,7 @@ import {
   MapPin,
   Clock,
   Users,
-  ChevronLeft,
   ChevronRight,
-  X,
   Image as ImageIcon,
   BookOpen,
   Heart,
@@ -24,7 +23,31 @@ import {
 import { format, isSameDay } from "date-fns";
 import { fr } from "date-fns/locale";
 import { cn } from "@/lib/utils";
+import { supabase, type DbEvent } from "@/lib/supabase";
 import {PAGE_SEO, useSEO} from "@/hooks/useSEO.ts";
+
+// ── Local photo imports ──────────────────────────────────────────────────────
+import photoConference from "@/assets/photos/b9da9345-8f0b-4d82-8673-f2ff63298659.jpg";
+import photoCertif1 from "@/assets/photos/8da0ef9f-9bdc-4291-ae1f-fc2d746b7221.jpg";
+import photoCertif2 from "@/assets/photos/005de1a6-ddf5-44ab-8258-52f6cf9e35ff.jpg";
+import photoCertif3 from "@/assets/photos/ab90cc2c-9125-4cfb-896c-e88e79e08016.jpg";
+import photoFormation1 from "@/assets/photos/a5091eff-a93f-495f-8289-d596c849c109.jpg";
+import photoFormation2 from "@/assets/photos/a570bcb7-2209-4b8e-8ae4-7b41a5329cf4.jpg";
+import photoFormation3 from "@/assets/photos/f16609b6-8d4b-456c-a3a3-dbe319bfecd8.jpg";
+import photoEvang1 from "@/assets/photos/13f23763-99c7-40b4-b005-5e1223273dd7.jpg";
+import photoEvang2 from "@/assets/photos/e4c7cb45-6211-4f00-ab5f-244d7c1735f0.jpg";
+import photoEvang3 from "@/assets/photos/e29ef645-3e08-4d6c-acee-2244b9ae50f3.jpg";
+import photoEvang4 from "@/assets/photos/IMG_7548.JPG";
+import photoEvang5 from "@/assets/photos/ddbbeec1-75cc-41bf-9790-18cd4c68793b.jpg";
+import photoRetraite1 from "@/assets/photos/e5232ca5-97a0-4f16-800e-b16851b9cdf5.jpg";
+import photoRetraite2 from "@/assets/photos/f7843cf5-919c-4d33-b025-7ee6812ab351.jpg";
+import photoMinicamp1 from "@/assets/photos/Mini-camp Sine Saloum__2 au 5 avril 2024/IMG-20240403-WA0070.jpg";
+import photoMinicamp2 from "@/assets/photos/Mini-camp Sine Saloum__2 au 5 avril 2024/IMG-20240403-WA0071.jpg";
+import photoMinicamp3 from "@/assets/photos/Mini-camp Sine Saloum__2 au 5 avril 2024/IMG-20240403-WA0072.jpg";
+import photoMinicamp4 from "@/assets/photos/Mini-camp Sine Saloum__2 au 5 avril 2024/IMG-20240403-WA0073.jpg";
+import photoMinicamp5 from "@/assets/photos/Mini-camp Sine Saloum__2 au 5 avril 2024/IMG-20240405-WA0110.jpg";
+import photoMinicamp6 from "@/assets/photos/Mini-camp Sine Saloum__2 au 5 avril 2024/IMG-20240405-WA0116.jpg";
+// ────────────────────────────────────────────────────────────────────────────
 
 interface Event {
   id: string;
@@ -45,7 +68,8 @@ interface GalleryImage {
   category: string;
 }
 
-const upcomingEvents: Event[] = [
+// Static fallback events (used if Supabase is not configured)
+const staticEvents: Event[] = [
   {
     id: "e1",
     title: "Retraite Spirituelle Nationale",
@@ -98,63 +122,45 @@ const upcomingEvents: Event[] = [
   },
 ];
 
+function mapDbEvent(e: DbEvent): Event {
+  return {
+    id: e.id,
+    title: e.title,
+    date: new Date(e.date),
+    time: e.time ?? "",
+    location: e.location ?? "",
+    description: e.description ?? "",
+    category: e.category,
+    attendees: e.attendees ?? undefined,
+  };
+}
+
 const galleryImages: GalleryImage[] = [
-  {
-    id: "g1",
-    src: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=600&h=400&fit=crop",
-    title: "Conférence Nationale 2025",
-    date: "Avril 2025",
-    category: "Conférence",
-  },
-  {
-    id: "g2",
-    src: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&h=400&fit=crop",
-    title: "Camp d'été à Saly",
-    date: "Août 2025",
-    category: "Retraite",
-  },
-  {
-    id: "g3",
-    src: "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=600&h=400&fit=crop",
-    title: "Formation Leadership",
-    date: "Septembre 2025",
-    category: "Formation",
-  },
-  {
-    id: "g4",
-    src: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=600&h=400&fit=crop",
-    title: "Évangélisation sur campus",
-    date: "Octobre 2025",
-    category: "Évangélisation",
-  },
-  {
-    id: "g5",
-    src: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop",
-    title: "Soirée de louange",
-    date: "Novembre 2025",
-    category: "Louange",
-  },
-  {
-    id: "g6",
-    src: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=600&h=400&fit=crop",
-    title: "Atelier d'étude biblique",
-    date: "Décembre 2025",
-    category: "Formation",
-  },
-  {
-    id: "g7",
-    src: "https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?w=600&h=400&fit=crop",
-    title: "Rencontre inter-campus",
-    date: "Janvier 2026",
-    category: "Communion",
-  },
-  {
-    id: "g8",
-    src: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&h=400&fit=crop",
-    title: "Prière du matin",
-    date: "Janvier 2026",
-    category: "Prière",
-  },
+  // Conférence
+  { id: "g-conf1", src: photoConference, title: "Conférence nationale GBUSS", date: "2020", category: "Conférence" },
+  // Formation
+  { id: "g-form1", src: photoCertif1, title: "Cérémonie de reconnaissance", date: "2019", category: "Formation" },
+  { id: "g-form2", src: photoCertif2, title: "Remise d'attestation", date: "2019", category: "Formation" },
+  { id: "g-form3", src: photoCertif3, title: "Remise d'attestation", date: "2019", category: "Formation" },
+  { id: "g-form4", src: photoFormation1, title: "Étude biblique en groupe", date: "2021", category: "Formation" },
+  { id: "g-form5", src: photoFormation2, title: "Session de formation", date: "2021", category: "Formation" },
+  { id: "g-form6", src: photoFormation3, title: "Groupe d'étude en plein air", date: "2021", category: "Formation" },
+  // Évangélisation
+  { id: "g-evang1", src: photoEvang1, title: "Étudiants sur le campus", date: "2021", category: "Évangélisation" },
+  { id: "g-evang2", src: photoEvang2, title: "Cellule de campus", date: "2018", category: "Évangélisation" },
+  { id: "g-evang3", src: photoEvang3, title: "Partage de l'Évangile", date: "2022", category: "Évangélisation" },
+  { id: "g-evang4", src: photoEvang4, title: "Équipe d'évangélisation", date: "2022", category: "Évangélisation" },
+  { id: "g-evang5", src: photoEvang5, title: "Ensemble unis, servons Christ", date: "2022", category: "Évangélisation" },
+  // Retraite
+  { id: "g-ret1", src: photoRetraite1, title: "Activité de groupe", date: "2022", category: "Retraite" },
+  { id: "g-ret2", src: photoRetraite2, title: "Atelier de retraite", date: "2022", category: "Retraite" },
+  // Mini-camp Sine Saloum 2024
+  { id: "g-mc1", src: photoMinicamp1, title: "Mini-camp Sine Saloum 2024", date: "Avril 2024", category: "Retraite" },
+  { id: "g-mc2", src: photoMinicamp2, title: "Mini-camp Sine Saloum 2024", date: "Avril 2024", category: "Retraite" },
+  { id: "g-mc3", src: photoMinicamp3, title: "Mini-camp Sine Saloum 2024", date: "Avril 2024", category: "Retraite" },
+  { id: "g-mc4", src: photoMinicamp4, title: "Mini-camp Sine Saloum 2024", date: "Avril 2024", category: "Retraite" },
+  { id: "g-mc5", src: photoMinicamp5, title: "Session de nuit – Mini-camp 2024", date: "Avril 2024", category: "Retraite" },
+  { id: "g-mc6", src: photoMinicamp6, title: "Mini-camp Sine Saloum 2024", date: "Avril 2024", category: "Retraite" },
 ];
 
 const actionTypes = [
@@ -191,21 +197,39 @@ const categoryConfig = {
   conference: { label: "Conférence", color: "bg-green-100 text-green-800", icon: Users },
 };
 
+const isSupabaseConfigured =
+  import.meta.env.VITE_SUPABASE_URL &&
+  import.meta.env.VITE_SUPABASE_URL !== "YOUR_SUPABASE_URL";
+
 export default function Actions() {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
   const [galleryFilter, setGalleryFilter] = useState<string>("all");
 
+  const { data: supabaseEvents } = useQuery({
+    queryKey: ["events"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("events")
+        .select("*")
+        .order("date", { ascending: true });
+      if (error) throw error;
+      return (data as DbEvent[]).map(mapDbEvent);
+    },
+    enabled: isSupabaseConfigured,
+  });
+
+  const upcomingEvents = supabaseEvents ?? staticEvents;
   const eventDates = upcomingEvents.map((e) => e.date);
 
-  const getEventsForDate = (date: Date) => {
-    return upcomingEvents.filter((event) => isSameDay(event.date, date));
-  };
+  const getEventsForDate = (date: Date) =>
+    upcomingEvents.filter((event) => isSameDay(event.date, date));
 
-  const filteredGallery = galleryFilter === "all"
-    ? galleryImages
-    : galleryImages.filter((img) => img.category === galleryFilter);
+  const filteredGallery =
+    galleryFilter === "all"
+      ? galleryImages
+      : galleryImages.filter((img) => img.category === galleryFilter);
 
   const galleryCategories = ["all", ...new Set(galleryImages.map((img) => img.category))];
 
@@ -291,9 +315,7 @@ export default function Actions() {
                 onSelect={setSelectedDate}
                 locale={fr}
                 className="pointer-events-auto"
-                modifiers={{
-                  hasEvent: eventDates,
-                }}
+                modifiers={{ hasEvent: eventDates }}
                 modifiersStyles={{
                   hasEvent: {
                     backgroundColor: "hsl(var(--primary) / 0.2)",
@@ -514,7 +536,6 @@ export default function Actions() {
               </DialogHeader>
               <div className="space-y-4 mt-4">
                 <p className="text-muted-foreground">{selectedEvent.description}</p>
-
                 <div className="border-t pt-4 space-y-3">
                   <div className="flex items-center gap-3 text-sm">
                     <Clock className="h-4 w-4 text-primary" />
@@ -531,7 +552,6 @@ export default function Actions() {
                     </div>
                   )}
                 </div>
-
                 <Button className="w-full mt-4" asChild>
                   <a href="/contact">S'inscrire à cet événement</a>
                 </Button>
@@ -549,13 +569,13 @@ export default function Actions() {
               <img
                 src={selectedImage.src}
                 alt={selectedImage.title}
-                className="w-full h-auto"
+                className="w-full h-auto max-h-[70vh] object-contain bg-black"
               />
               <div className="p-6">
                 <DialogTitle className="text-xl font-serif">{selectedImage.title}</DialogTitle>
                 <DialogDescription className="flex items-center gap-2 mt-1">
                   <Badge variant="secondary">{selectedImage.category}</Badge>
-                  <span>{selectedImage.date}</span>
+                  <span className="text-muted-foreground">{selectedImage.date}</span>
                 </DialogDescription>
               </div>
             </>

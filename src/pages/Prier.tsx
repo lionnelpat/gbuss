@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import {PAGE_SEO, useSEO} from "@/hooks/useSEO.ts";
+import { submitToWeb3Forms } from "@/lib/web3forms";
 
 const prayerTopics = [
   {
@@ -62,15 +63,32 @@ const PrierPage = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      await submitToWeb3Forms({
+        subject: "[GBUSS] Inscription chaîne de prière",
+        from_name: formData.name,
+        email: formData.email,
+        Nom: formData.name,
+        Téléphone: formData.phone || "Non renseigné",
+        Ville: formData.city || "Non renseignée",
+        "Créneaux de prière": formData.prayerTimes.join(", ") || "Non sélectionnés",
+        Message: formData.message || "Aucun message",
+      });
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    toast({
-      title: "Inscription réussie !",
-      description: "Bienvenue dans la chaîne de prière du GBUSS.",
-    });
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+      toast({
+        title: "Inscription réussie !",
+        description: "Bienvenue dans la chaîne de prière du GBUSS.",
+      });
+    } catch {
+      toast({
+        title: "Erreur d'envoi",
+        description: "Une erreur s'est produite. Veuillez réessayer ou nous contacter directement.",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+    }
   };
 
   useSEO(PAGE_SEO.prier);

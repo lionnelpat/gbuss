@@ -31,7 +31,9 @@ export function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link to="/" className="flex items-center gap-3 mb-6">
-              <img src={logo} alt="GBUSS Logo" className="h-14 w-auto brightness-0 invert" />
+              <div className="h-14 w-14 bg-white rounded-xl p-1 flex-shrink-0 flex items-center justify-center">
+                <img src={logo} alt="GBUSS Logo" className="h-full w-auto" />
+              </div>
               <div>
                 <span className="font-serif text-2xl font-bold">GBUSS</span>
                 <p className="text-sm opacity-80">

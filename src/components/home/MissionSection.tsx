@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Target, Eye, Heart, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import prayerImage from "@/assets/prayer-group.jpg";
+import prayerImage from "@/assets/photos/f16609b6-8d4b-456c-a3a3-dbe319bfecd8.jpg";
 
 const values = [
   {

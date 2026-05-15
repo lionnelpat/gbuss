@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Users, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/hero-students.jpg";
+import heroImage from "@/assets/photos/IMG_7548.JPG";
 
 export function HeroSection() {
   return (

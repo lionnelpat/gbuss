@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Calendar, Users, BookOpen, Megaphone, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import conferenceImage from "@/assets/conference.jpg";
+import conferenceImage from "@/assets/photos/b9da9345-8f0b-4d82-8673-f2ff63298659.jpg";
 
 const actions = [
   {

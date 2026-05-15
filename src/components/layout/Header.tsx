@@ -27,7 +27,7 @@ export function Header() {
           <img
             src={logo}
             alt="GBUSS Logo"
-            className="h-12 w-auto transition-transform duration-300 group-hover:scale-105"
+            className="h-12 w-auto transition-transform duration-300 group-hover:scale-105 mix-blend-multiply dark:mix-blend-normal dark:brightness-0 dark:invert"
           />
           <div className="hidden sm:block">
             <span className="font-serif text-xl font-bold text-primary">GBUSS</span>

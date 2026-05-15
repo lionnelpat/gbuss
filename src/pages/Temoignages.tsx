@@ -3,8 +3,6 @@ import { motion } from "framer-motion";
 import {
   Quote,
   Play,
-  Pause,
-  Volume2,
   Send,
   User,
   GraduationCap,
@@ -12,8 +10,6 @@ import {
   Video,
   Mic,
   FileText,
-  ChevronLeft,
-  ChevronRight
 } from "lucide-react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -23,6 +19,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import {PAGE_SEO, useSEO} from "@/hooks/useSEO.ts";
+import { supabase } from "@/lib/supabase";
 
 // Types for testimonials
 type TestimonialType = "text" | "audio" | "video";
@@ -54,31 +51,32 @@ const testimonials: Testimonial[] = [
     id: 2,
     type: "video",
     content: "Découvrez comment le GBUSS a impacté mon parcours universitaire et ma foi.",
-    author: "Abdou Diallo",
-    role: "Ingénieur informatique",
-    year: "Promotion 2018",
-    university: "ESP - Dakar",
-    mediaUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    thumbnail: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop",
+    author: "Témoignage GBUSS",
+    role: "Ancien membre",
+    year: "",
+    university: "",
+    mediaUrl: "https://www.youtube.com/embed/tLL1Mlu_lNE",
+    thumbnail: "https://img.youtube.com/vi/tLL1Mlu_lNE/maxresdefault.jpg",
   },
   {
     id: 3,
-    type: "audio",
-    content: "Écoutez mon témoignage sur l'impact du GBUSS dans ma vie de foi.",
-    author: "Fatou Sow",
-    role: "Enseignante",
-    year: "Promotion 2019",
-    university: "UGB - Saint-Louis",
-    mediaUrl: "/audio/testimonial-fatou.mp3",
-  },
-  {
-    id: 4,
     type: "text",
     content: "Grâce aux camps nationaux du GBUSS, j'ai compris l'importance du témoignage chrétien dans le milieu académique. Cette expérience m'a préparé à vivre ma foi de manière authentique partout où je vais.",
     author: "Jean-Pierre Mendy",
     role: "Médecin",
     year: "Promotion 2017",
     university: "UCAD - Faculté de Médecine",
+  },
+  {
+    id: 4,
+    type: "video",
+    content: "Un témoignage sur l'impact du GBUSS dans la vie spirituelle.",
+    author: "Témoignage GBUSS",
+    role: "Ancien membre",
+    year: "",
+    university: "",
+    mediaUrl: "https://www.youtube.com/embed/0KEU1PAd0gY",
+    thumbnail: "https://img.youtube.com/vi/0KEU1PAd0gY/maxresdefault.jpg",
   },
   {
     id: 5,
@@ -92,84 +90,15 @@ const testimonials: Testimonial[] = [
   {
     id: 6,
     type: "video",
-    content: "Mon parcours de foi au GBUSS - un témoignage vidéo.",
-    author: "Moussa Sarr",
-    role: "Pasteur",
-    year: "Promotion 2015",
-    university: "UCAD - Philosophie",
-    mediaUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    thumbnail: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=300&fit=crop",
+    content: "Découvrez l'impact du GBUSS à travers ce témoignage.",
+    author: "Témoignage GBUSS",
+    role: "Ancien membre",
+    year: "",
+    university: "",
+    mediaUrl: "https://www.youtube.com/embed/ZfqoFTKWioI",
+    thumbnail: "https://img.youtube.com/vi/ZfqoFTKWioI/maxresdefault.jpg",
   },
 ];
-
-// Audio Player Component
-function AudioPlayer({ testimonial }: { testimonial: Testimonial }) {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [progress, setProgress] = useState(0);
-
-  const togglePlay = () => {
-    setIsPlaying(!isPlaying);
-    // Simulate progress for demo
-    if (!isPlaying) {
-      const interval = setInterval(() => {
-        setProgress((prev) => {
-          if (prev >= 100) {
-            clearInterval(interval);
-            setIsPlaying(false);
-            return 0;
-          }
-          return prev + 2;
-        });
-      }, 200);
-    }
-  };
-
-  return (
-    <Card className="bg-card border-border overflow-hidden group hover:shadow-elevated transition-all duration-300">
-      <CardContent className="p-6">
-        <div className="flex items-center gap-4 mb-4">
-          <div className="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center">
-            <Mic className="h-8 w-8 text-accent" />
-          </div>
-          <div>
-            <h3 className="font-semibold text-foreground">{testimonial.author}</h3>
-            <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-            <p className="text-xs text-accent">{testimonial.university}</p>
-          </div>
-        </div>
-
-        <p className="text-muted-foreground mb-4 text-sm italic">"{testimonial.content}"</p>
-
-        {/* Audio Controls */}
-        <div className="bg-muted rounded-lg p-4">
-          <div className="flex items-center gap-4">
-            <button
-              onClick={togglePlay}
-              className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-primary-foreground hover:bg-primary/90 transition-colors"
-            >
-              {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5 ml-1" />}
-            </button>
-            <div className="flex-1">
-              <div className="h-2 bg-border rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-accent transition-all duration-200"
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
-              <div className="flex justify-between text-xs text-muted-foreground mt-1">
-                <span>0:00</span>
-                <span>3:45</span>
-              </div>
-            </div>
-            <Volume2 className="h-5 w-5 text-muted-foreground" />
-          </div>
-        </div>
-
-        <div className="mt-4 text-xs text-accent font-medium">{testimonial.year}</div>
-      </CardContent>
-    </Card>
-  );
-}
 
 // Video Player Component
 function VideoPlayer({ testimonial }: { testimonial: Testimonial }) {
@@ -273,23 +202,34 @@ function SubmissionForm() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const { error } = await supabase.from("testimonials").insert({
+        name: formData.name,
+        email: formData.email || null,
+        university: formData.university || null,
+        year: formData.year || null,
+        type: formData.type === "audio" ? "text" : formData.type,
+        content: formData.content || null,
+        approved: false,
+      });
 
-    toast({
-      title: "Témoignage envoyé !",
-      description: "Merci pour votre témoignage. Notre équipe le examinera avant publication.",
-    });
+      if (error) throw error;
 
-    setFormData({
-      name: "",
-      email: "",
-      university: "",
-      year: "",
-      type: "text",
-      content: "",
-    });
-    setIsSubmitting(false);
+      toast({
+        title: "Témoignage envoyé !",
+        description: "Merci ! Notre équipe l'examinera avant publication.",
+      });
+
+      setFormData({ name: "", email: "", university: "", year: "", type: "text", content: "" });
+    } catch {
+      toast({
+        title: "Erreur d'envoi",
+        description: "Une erreur s'est produite. Veuillez réessayer.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -351,80 +291,45 @@ function SubmissionForm() {
 
           {/* Type Selection */}
           <div className="space-y-2">
-            <label className="text-sm font-medium text-foreground">Type de témoignage *</label>
+            <label className="text-sm font-medium text-foreground">Type de témoignage</label>
             <div className="grid grid-cols-3 gap-3">
+              <button
+                type="button"
+                onClick={() => setFormData({ ...formData, type: "text" })}
+                className="p-4 rounded-lg border-2 transition-all flex flex-col items-center gap-2 border-accent bg-accent/10 text-accent"
+              >
+                <FileText className="h-6 w-6" />
+                <span className="text-sm font-medium">Texte</span>
+              </button>
               {[
-                { type: "text" as TestimonialType, icon: FileText, label: "Texte" },
-                { type: "audio" as TestimonialType, icon: Mic, label: "Audio" },
-                { type: "video" as TestimonialType, icon: Video, label: "Vidéo" },
+                { icon: Mic, label: "Audio" },
+                { icon: Video, label: "Vidéo" },
               ].map((option) => (
-                <button
-                  key={option.type}
-                  type="button"
-                  onClick={() => setFormData({ ...formData, type: option.type })}
-                  className={`p-4 rounded-lg border-2 transition-all flex flex-col items-center gap-2 ${
-                    formData.type === option.type
-                      ? "border-accent bg-accent/10 text-accent"
-                      : "border-border bg-background hover:border-accent/50 text-muted-foreground"
-                  }`}
+                <div
+                  key={option.label}
+                  className="relative p-4 rounded-lg border-2 border-dashed border-border bg-muted/30 flex flex-col items-center gap-2 opacity-60 cursor-not-allowed"
                 >
-                  <option.icon className="h-6 w-6" />
-                  <span className="text-sm font-medium">{option.label}</span>
-                </button>
+                  <option.icon className="h-6 w-6 text-muted-foreground" />
+                  <span className="text-sm font-medium text-muted-foreground">{option.label}</span>
+                  <span className="absolute -top-2 left-1/2 -translate-x-1/2 bg-muted text-xs text-muted-foreground px-2 py-0.5 rounded-full border border-border whitespace-nowrap">
+                    Bientôt
+                  </span>
+                </div>
               ))}
             </div>
           </div>
 
-          {/* Content based on type */}
-          {formData.type === "text" && (
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-foreground">Votre témoignage *</label>
-              <Textarea
-                required
-                value={formData.content}
-                onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                placeholder="Partagez comment le GBUSS a impacté votre vie spirituelle et votre parcours..."
-                className="bg-background min-h-[150px]"
-              />
-            </div>
-          )}
-
-          {formData.type === "audio" && (
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-foreground">Fichier audio</label>
-              <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-accent/50 transition-colors cursor-pointer">
-                <Mic className="h-12 w-12 text-muted-foreground mx-auto mb-3" />
-                <p className="text-muted-foreground">
-                  Glissez votre fichier audio ici ou cliquez pour parcourir
-                </p>
-                <p className="text-xs text-muted-foreground mt-2">
-                  Formats acceptés : MP3, WAV, M4A (max 10 MB)
-                </p>
-                <input type="file" accept="audio/*" className="hidden" />
-              </div>
-              <Textarea
-                value={formData.content}
-                onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                placeholder="Description brève de votre témoignage (optionnel)"
-                className="bg-background"
-              />
-            </div>
-          )}
-
-          {formData.type === "video" && (
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-foreground">Lien vidéo (YouTube, Vimeo)</label>
-              <Input
-                value={formData.content}
-                onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                placeholder="https://www.youtube.com/watch?v=..."
-                className="bg-background"
-              />
-              <p className="text-xs text-muted-foreground">
-                Collez le lien de votre vidéo YouTube ou Vimeo
-              </p>
-            </div>
-          )}
+          {/* Text content */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-foreground">Votre témoignage *</label>
+            <Textarea
+              required
+              value={formData.content}
+              onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+              placeholder="Partagez comment le GBUSS a impacté votre vie spirituelle et votre parcours..."
+              className="bg-background min-h-[150px]"
+            />
+          </div>
 
           <Button
             type="submit"
@@ -466,7 +371,6 @@ function FilterTabs({
   const filters = [
     { id: "all" as const, label: "Tous", icon: Quote },
     { id: "text" as const, label: "Texte", icon: FileText },
-    { id: "audio" as const, label: "Audio", icon: Mic },
     { id: "video" as const, label: "Vidéo", icon: Video },
   ];
 
@@ -560,7 +464,7 @@ export default function Temoignages() {
               Galerie de témoignages
             </h2>
             <p className="text-muted-foreground mb-8">
-              Filtrez par type de témoignage : texte, audio ou vidéo
+              Filtrez par type de témoignage : texte ou vidéo
             </p>
             <FilterTabs activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
           </div>
@@ -578,7 +482,6 @@ export default function Temoignages() {
                 transition={{ delay: index * 0.1 }}
               >
                 {testimonial.type === "text" && <TextTestimonial testimonial={testimonial} />}
-                {testimonial.type === "audio" && <AudioPlayer testimonial={testimonial} />}
                 {testimonial.type === "video" && <VideoPlayer testimonial={testimonial} />}
               </motion.div>
             ))}
@@ -606,17 +509,13 @@ export default function Temoignages() {
             </div>
 
             <div className="relative aspect-video rounded-2xl overflow-hidden shadow-elevated">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/90 to-primary flex items-center justify-center">
-                <div className="text-center text-primary-foreground p-8">
-                  <Play className="h-16 w-16 mx-auto mb-4 text-accent" />
-                  <h3 className="font-serif text-2xl font-bold mb-2">
-                    Documentaire GBUSS
-                  </h3>
-                  <p className="text-primary-foreground/80">
-                    Découvrez l'histoire et l'impact du GBUSS à travers les générations
-                  </p>
-                </div>
-              </div>
+              <iframe
+                src="https://www.youtube.com/embed/tLL1Mlu_lNE"
+                title="Témoignage GBUSS"
+                className="w-full h-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
             </div>
           </div>
         </div>
